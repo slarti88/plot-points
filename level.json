@@ -1,0 +1,47 @@
+{
+  "id": "chapter-1",
+  "title": "The Road North",
+  "nodes": [
+    {
+      "id": "n0", "label": "The Summons",
+      "body": "A hooded stranger arrives at dusk with an urgent letter sealed in black wax.",
+      "t": 1, "allowedElements": ["e1", "e3"],
+      "emptyImage": "", "filledImages": { "e1": "", "e3": "" }
+    },
+    {
+      "id": "n1", "label": "The Crossing",
+      "body": "The black river runs fast and cold. Someone must swim it tonight.",
+      "t": 1, "allowedElements": ["e2"],
+      "emptyImage": "", "filledImages": {"e2": "" }
+    },
+    {
+      "id": "n2", "label": "The Bargain",
+      "body": "A witch blocks the road and demands a truth in payment before she steps aside.",
+      "t": 0, "allowedElements": ["e1", "e4"],
+      "emptyImage": "", "filledImages": { "e1": "", "e4": "" }
+    },
+    {
+      "id": "n3", "label": "The Tower",
+      "body": "The signal fire must be lit. Two pairs of hands are needed at the summit.",
+      "t": 2, "allowedElements": ["e2"],
+      "mustShareWith":"n1",
+      "capacity": 2,
+      "emptyImage": "",
+       "filledImages": { "e2": ""}
+    },
+    {
+      "id": "n4", "label": "The Ambush",
+      "body": "Shadows move between the pines. Someone needs to hold the line.",
+      "t": 0, "allowedElements": ["e1", "e4"],
+      "mustShareWith":"n2",
+      "emptyImage": "", "filledImages": { "e1": "", "e4": "" }
+    }
+  ],
+  "elements": [
+    { "id": "e0", "label": "Elara",  "icon": "🗡", "color": "#e85a3c", "trait": "BRAVE",   "bio": "Knight-errant. First into the fire, last to speak." },
+    { "id": "e1", "label": "Corvus", "icon": "🪶", "color": "#6a8cc7", "trait": "CUNNING", "bio": "Raven-tongued spy. Traded in secrets once too often." },
+    { "id": "e2", "label": "Mira",   "icon": "✦",  "color": "#c4a832", "trait": "WISE",    "bio": "Apprentice scholar. Knows three true things about people." },
+    { "id": "e3", "label": "Zazo",   "icon": "✦",  "color": "#c4a832", "trait": "STRONG",    "bio": "Apprentice scholar. Knows three true things about people." },
+    { "id": "e4", "label": "Ellu",   "icon": "✦",  "color": "#c4a832", "trait": "KIND",    "bio": "Apprentice scholar. Knows three true things about people." }
+  ]
+}

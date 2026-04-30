@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Build output
+frontend/dist/
+
+# Environment / secrets
+.env
+.env.*
+deploy.sh
+backend/config/config.json
+
+# Generated runtime data
+dist/*
+images/*
+public/*
+
+# IDE / OS
+.claude/
+.DS_Store
+Thumbs.db
+*.log

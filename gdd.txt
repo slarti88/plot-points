@@ -1,0 +1,372 @@
+Daily exploration mechanic?
+
+Core pillars
+
+- Exploration
+- Something to complete every day that ties in to exploration
+- Mechanic should be familiar and a bit different wherever you go x
+- Easy to have daily variations so it doesn't take too much time? x
+- Story is imp
+- Multiple people doing the same thing like wordle? x
+
+
+Yeah Yeah, next step pls
+
+- Small voxel island
+- Satisfy conditions to get to the next island
+- Simple 5-10 minute puzzle solve that will get me there?
+- Yeah I guess text based wordle type that gives me ability to tell story also
+- Ok diorama restoration has a nice feel to it. You solve the puzzle and restores the edges and along with it, the gate to the next island!
+- So how do you restore it?
+	- Jigsaw puzzle? 
+	- Word puzzle?
+
+OK template is Is this seat taken!
+
+- You put the island back together
+- There are charas in the island which give you clues about what the island should have and tell you where it possibly should go
+- Tapping on broken parts show you what can be added. If it is wrong or problematic then it would show it as a feedback from some of the charas
+
+Ok next decision is that since it is isometric (even if I do voxel based should I keep it 2d with 2d sprites?)
+
+Ok based on AI recommendations we can go with 
+1. PixiJs
+2. MagicaVoxel model creation
+3. Game logic in vanilla TS
+4. Build using vite
+5. server + cdn cache
+
+Next thing then to do would be to come up with a basic prompt for AI to create something I can actually use?
+
+
+
+What if I made an is this seat taken story version? For simplicity?
+
+Lets say there's 5 characters each have a decision to take
+
+There is a setting
+
+1. A monster is trying to attack a girl
+
+There is a branched story line with fixed plot points which can be achieved in multiple ways and upto user to find ways to do it with specific characters
+
+
+1. A monster appears in the village
+2. A spell is found in the village elder's house
+3. The spell is used on the monster
+4. E3
+
+2. A ton of meat is made 
+3. A brave soul reaches close enough to the monster and drops the meat
+4. The monster eats all the meat
+5. E4
+
+A->B->C->D->E
+
+Two plot points
+
+Start -> A(X) -> B(Y) -> End
+
+Charas => X and Y
+
+The forbidden temple of Vibha
+
+Enter the temple -> The earth quakes shaking huge slabs of stone loose and making them fall, and A dives to avoid getting hit -> B spies an entrance in the far corner and makes her way there.
+
+X -> Super agile
+Y -> Not so agile a bit old
+
+
+Parallel plot points allowing only some to work, with cooldown system
+
+Start -> A+2(W/X/Y/Z) -> B+1(X/Y) -> C+3(Y/Z) -> D(X/Z) -> End
+
+A(X) -> B(Y) -> C(Z) -> D(X)
+A(Y) -> B(X) -> C(Z) -> D(X)
+A(Z) -> B(X) -> C(Y) -> D(Z)
+
+Charas X,Y,Z
+
+So two mechanics instead and this seems more doable
+1. Plot points which can only use certain charas
+2. Once used they become available only after a certain no of plot points and then I will fit the story into this framework.
+
+Future additions
+1. Parallel plot points
+2. Use multi characters for a plot point (and their compatibility issues)
+
+Next step is to ask claude to build a basic system with the right prompts and using phaser/react. Maybe define the UI really well and then tell it.
+
+
+Build a browser based puzzle game. The specifications of the game are as follows
+
+1. There are x number of nodes in the game in a sequence. Each node has a number property called t. 
+2. There are y number of elements. Each element can be attached to a node 
+3. Each node defines which elements are allowed to be attached to that node.
+4. If an element is attached to a node the same element can only be re-attached to another node after t nodes in the sequence
+5. The goal is to successfully have every node attached to an element to complete the level
+6. The level defines how many nodes are there and their properties and sequence and how many elements are there and their ids. 
+7. Support just the single level in the first iteration
+
+Tools
+1. Use Phaser.js as the game engine
+2. Use json to define the level for now
+
+Visuals
+1. For now keep it minimal with the nodes shown in the center and going from bottom to top in sequence. The nodes should be scrollable if they don't fit in the screen
+2. Have the elements appear on the right of the screen and should always be visible above the nodes and not be scrollable
+
+Interaction
+1. The elements should be drag and droppable on the nodes
+2. If an invalid element is added to a node it should show an indicator that it is invalid 
+3. A finish button should exist to complete the level. But should be disabled if due to attaching invalid nodes or not all nodes having elements the level can't be completed
+
+Come up with a plan for this and write it to plan.md. Ask me for any clarifications you may require.
+
+Fetch this design file, read its readme. https://api.anthropic.com/v1/design/h/xmR6Y2hWrJIK8jh_G3Z58A?open_file=Plot+Puzzle+HiFi.html
+This contains the updated design for the plot points game we have created in react. Come up with a plan for all the modifications you will need to make to migrate to this design. Share the plan with me once finished. Ask me for any clarifications you may have.
+
+
+- Mai's story?
+
+Just from a puzzle perspective
+
+4 plot points
+
+A(+2) - E1, E2
+B(+1) - E2
+C(0) -  E1, E3
+D(+2) - E2 
+E (0) - E1,E3
+
+
+OK, the issues are
+1. Multiple solns are easily possible (tighter level design can fix this I guess)
+2. Does feel a bit mundane just like this. It should feel a bit better?
+
+Mechanic ideas  I already had were
+1. Multiple characters for a plot point
+2. Parallel plot point, basically like a node graph type thing
+3. Conditional points, like D needs someone from B, E needs someone from C
+
+
+Lets take 1
+
+E1,E2,E3,E4
+
+A (+1) (x2) - E1, E3
+B (+1) (E2 only) - E2
+C (0) (x2) - (E1, E4) 
+D (+2) -B - E2
+E (0) (x2) -C - (E4, E1) 
+
+
+A -> B -> C -> D -> E
+
+We need to make a few additions to the rule mechanics.
+Specifically, we need to add the capability to have one node support multiple elements.
+Secondly  a node  can have the ability to add a constraint where atleast one of the elements must have also been added in a previous specified node
+
+Come up with a plan for making these changes and show me what it is. Don't implement anything yet, ask me for any clarifications you might require  
+
+A 1 - e0,e1,e2 - 2
+B 1 - e0,e2,e3 - 2
+C 2 - e0,e2,e4 = 1
+D 0 - e1,e2,e4 / B - 2
+E 2 - e0,e1,e2 - 1
+F 1 - e0,e1 / D - 1
+
+Ok next steps to get it out there
+
+- Update image system to handle multiple chara - Basically have a generic bg for the plot and charas on top of it!
+- Make a base proper level with the mechanic that we have
+
+Next steps
+Next steps!
+
+We need to update the visual system in such a way that the empty image acts as a base image. This is the background of the image for that node. When an element is dropped in if its image exists it is drawn on top of it as an overlay. If multiple elements are added in the order of adding their filled images overlayed over one another. How would you implement this? Ask for any clarifications you might need.
+
+
+ 1. FilledScene's gradient background — Existing gradient
+  2. AcceptingSlot / RejectingSlot —  they should replace the image region entirely.
+  3. Dragging from a layered node (cap=1) — The whole region
+  4. Multi-slot nodes (cap>1) — Yes it should apply to multi-slot nodes
+
+Next step for reallzzzz
+
+1. Come up with a simple starting plot with charas. Begin by asking for AI advice on type of plot that would work? Constrain ourselves a bit?
+
+Okay people are trying to find the hidden world of Bhumi.
+
+Mai -> Dependable and smart, less knowledgeable
+Kinma -> Old and frail, knowledgeable but rude, greedy
+Jai -> Strong, dependable, stupid 
+
+So instead of saying this task needs A and B, we frame it as A and B can't work together in this situation
+C always requires D for any task
+
+So that way it gets more complex and maybe fun with dynamics. Ok after we have a plot, no distractions yet
+
+Not too narratively word-heavy, but possible setup for a long form thing, it all comes down to relationships driven scenario and gameplay. Also lets keep it light not dystopic types for fun purposes!
+
+Looking for buried treasure
+Escaping from a volcano
+Escaping out of a game
+Stuck in a dying planet
+Only people alive/conscious in the planet
+Everyone is a ghost and I am the only one who can see them
+A virus makes everyone lose their memories and only I remember!
+A crew stuck in an alien planet
+A bunch of kids stuck in the past
+A bunch of kids stuck in an alternate dimension
+Phones have taken over people's minds and they can't do anything except a few kids!
+Pirates nakama looking for treasure
+People of different nationalities are put in an experiment to save earth by a GOD
+Awkward afterlife family trip to mend relationships and fix things!
+Solve mysteries by reasoning through them
+A group of heroes on a quest to defeat a monster
+A dysfunctional family on a quest to defeat a monster
+WOrkplace of the weird
+Corporate office where employees save the planet
+Coprorate office where the employees have to defeat villains
+Corporate office meets supernatural!
+The team-bonding event in hell!
+Classroom of the weird
+Students must get together to defeat the evil threatening their class!
+Classroom is constantly having to deal with ghosts, villains and outside forces
+***Friends try to save their missing friend by dealing with the supernatural (Stranger things style) --- Nah
+
+Keep it light and see must be fun / funny
+- Interrelationships of charas is super important
+- Which means a misfit group
+- Find themselves in hilarious situations but are in it for a good cause
+- GOtta let it evolve man, no long term planning, just do what's best next!
+
+
+
+Short term wise what would be better?
+- A simple plot that would make for fun interaction in the first playthrough
+
+
+A 1 - e0,e1,e2 - 2
+B 1 - e0,e4,e3 - 2
+C 2 - e0,e2,e4 = 1
+D 0 - e1,e2,e4 / B - 2
+E 2 - e0,e1,e2 - 1
+F 1 - e0,e1 / D - 1
+
+e0 - 1
+e1 - 1
+e2 - 2
+e3 - 2
+e4 - 1
+
+
+- Animal town, all humans have suddenly disappeared so the animals have to band together to figure out what is happening
+
+- A house is on fire
+- X and Y manage to sneak into the house and find the source of the fire, the stove!
+- X fetches a pail of water
+
+
+The evil Monster X attacks a school and the heroes are there to save the day!
+Heroes on a journey to find the north-star?
+
+Adventurers on earth sifting through its ruins to find different things! Going outside to do things can weaken them which requires a pause before using them. 
+They also have different occupations which can lend itself well to different tasks
+
+- You are fate, someone messed up the world's timelines! And you have to fix them? - But same charas?
+
+- Charas feel sick / tired / hungry after doing things and could be the reason
+- Charas have fixed appetite or ability to do things, they need to rest once they are done which influences the plot. Use that instead?
+
+- Characters on a journey make it to the end of the earth
+- Characters stranded in an island and have to explore outside?
+
+- Detective game!!!
+- Something like Detective school Q, you piece together the timeline of what happened by placing the right characters in the right places
+- Overarching narrative
+
+
+- A body is found in the caves, earlier thought to be an accident but you investigate closely to piece together timeline of events
+
+- X,Y,Z and W go into a cave
+- X and Y have an argument about whether they should go deeper
+- X and Y hang back for a bit
+- X gets separated from others and panics! 
+- X decides to go and bring back the ones who went deeper
+- X sneaks up on Y and bashes him in the head and hides the body
+- X and Y come back but can't find W anymore
+
+
+A - e0,e1,e2,e3 - 1
+B - e0,e1,e2,e3 - 2
+C - e0,e1,e2,e3 - 2 -> one from B
+D - e0,e1,e2,e3 - 1 -> one from B
+E - e0,e1,e2,e3 - 1 -> one from C
+F - e0,e1,e2,e3 - 2 -> one from C and one from D
+G - e0,e1,e2,e3 - 3 -> two from C one from D
+
+
+- Detective game version (for now!)
+
+1. Ok keep with the detective theme and update the level text
+2. Make chara art for the charas
+3. Make bg art for the plot points
+
+- OK
+1. I am able to get it to kinda/sorta work, but now the issue is with mustNotShare etc I am ensuring the right characters are placed from the start itself but it should be only verifiable in the end? Or maybe not needed... We can try a few and then see.
+
+
+For now settings are blank and we fill in the chara heads!
+
+Ok next steps
+- Make rough sketches for the murder story
+- Make the chara heads
+
+Ok next steps
+- Ok i have images for the cave story, next make images for the different chara heads and plan how to add different emotions for the heads in different scenes
+
+- Ok I have chara and base images, for now just add them in the scene
+
+- Ok so not replacing images is ok, I need a better UX and framing instead of the comic panel based system that I have right now. It must be able to show me the causal relationships between charas from one plot point to another
+
+- OK for next session I should show the character icons and also show them in the frames. Update the plot point text with chara names and add that support.
+- If you remove a character or add a character, run the validation on the entire thing and pin-point any invalid plot points. Tapping on a plot point should show info about that plot point, filled  / empty / error constraints etc.
+
+- Change the plot detail pane to have the following
+- Remove the potential list of elements it accepts
+- Show a slot each for the element slot in that node and for that slot show the conditions. For example : Slot 1 - Cannot share with 'Node 2', Slot 2 - Shares character with 'Node 3', Cannot share with 'Node 1'. Slot 1 will take its conditions from the first element in the mustShareWith and mustNotShareWith arrays, and slot 2 from the second element and so on. Also for each slot if the t value for that index exists and is greater than 0, show the additional text, character cannot be used for the next t turns.
+
+Come up with a plan for this change and share it with me. Ask me for any clarifications you might require.
+
+- Next thing is to just host it in the site for now
+- Then we will push for another story arc with better art and see.
+- Once the above streamlines and is just creating and adding content in a specific way, I can move onto whackjob
+
+- Ok next step after hosting?
+- Mobile support
+- Fix bugs with mobile support
+- ABility to access different levels and chapters
+- Update text to reflect characters with their colors based on who you drag/dropped.
+- Come up with a better level 2 and update level 1 to be a mystery of sorts also have options of more characters but can't use them all
+-  Simplify art even further
+- On tap of icon for character show a floating bar that shows the character bio
+- Progress storage (local / indexeddb)
+
+- Enhance this to support multiple levels or chapters
+- For now update level.json to be level1.json
+- Add another json contain level names and let it be an array. 
+- Create a screen that shows a list of available levels to select. Selecting that takes us to the game screen with that level selected
+
+Bugs
+1. Text details are not shown for plot points
+2. Icon for single character nodes
+3. Icons are being hidden by the task bar on my phone
+
+
+As a next step we want to add the ability to update character texts in the plot body based on the characters that have been dropped on the plot card. The text for the card has placeholders of the form <1>, <2> and so on, where 1 refers to the character dropped in the first slot, 2 in the second slot etc.
+
+If a character has not been dropped it should show ??? otherwise it should show the character's name and should be colored based on the character's color defined in the color field of the elements json.
+
+Come up with a plan to add this and show me the plan. Ask me for any clarifications you might require.
