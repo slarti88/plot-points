@@ -9,7 +9,7 @@ export default function App() {
   const [level, setLevel] = useState<Level | null>(null)
 
   useEffect(() => {
-    fetch('levels.json').then(r => r.json()).then(setLevels)
+    fetch('levels.json').then(r => r.json()).then(data => setLevels(data.levels ?? data))
   }, [])
 
   const handleSelect = (id: string) => {

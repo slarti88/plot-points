@@ -1,21 +1,19 @@
-import { halftone } from '../utils/halftone'
-import type { LevelElement } from '../types'
+import type { LevelElement, Attribute } from '../types'
 
 type PortraitState = 'idle' | 'spent' | 'dragging'
 
 interface Props {
   element: LevelElement
+  attribute?: Attribute
   state?: PortraitState
   size?: number
   onDragStart?: (elementId: string, x: number, y: number) => void
 }
 
-export default function CharacterPortrait({ element, state = 'idle', size = 72, onDragStart }: Props) {
+export default function CharacterPortrait({ element, attribute, state = 'idle', size = 72, onDragStart }: Props) {
   const spent    = state === 'spent'
   const dragging = state === 'dragging'
-
-  const nameBannerH = Math.round(size * 0.28)
-
+  const badgeSize = Math.round(size * 0.6)
   return (
     <div
       style={{
@@ -25,6 +23,7 @@ export default function CharacterPortrait({ element, state = 'idle', size = 72, 
         cursor: spent ? 'not-allowed' : dragging ? 'grabbing' : 'grab',
         userSelect: 'none',
         display: 'inline-block',
+        position: 'relative',
       }}
       onMouseDown={e => {
         if (spent || !onDragStart) return
@@ -38,12 +37,13 @@ export default function CharacterPortrait({ element, state = 'idle', size = 72, 
         onDragStart(element.id, touch.clientX, touch.clientY)
       }}
     >
-      {/* Portrait box */}
+      {/* Portrait circle */}
       <div
         style={{
           width: size,
           height: Math.round(size * 1.1),
           border: '2px solid var(--ink)',
+          borderRadius: '50%',
           background: element.color,
           boxShadow: dragging ? `6px 6px 0 var(--ink)` : `3px 3px 0 var(--ink)`,
           display: 'flex',
@@ -53,36 +53,36 @@ export default function CharacterPortrait({ element, state = 'idle', size = 72, 
           overflow: 'hidden',
         }}
       >
-        <span style={{ fontSize: Math.round(size * 0.5), lineHeight: 1, position: 'relative', zIndex: 1 }}>
-          {element.icon}
+        <span style={{ fontSize: Math.round(size * 0.25),
+          lineHeight: 1,
+          position: 'relative',
+          zIndex: 1,
+          color: 'var(--paper)',
+          fontStyle:'bold',
+          fontFamily: '"Bangers", cursive' }}>
+          {element.label.toUpperCase()}
         </span>
-        {/* Halftone overlay */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          backgroundImage: halftone('var(--ink)', 0.15, 5),
-          mixBlendMode: 'multiply',
-          pointerEvents: 'none',
-        }} />
       </div>
 
-      {/* Name banner */}
-      <div
-        style={{
-          marginTop: -1,
-          background: 'var(--ink)',
-          color: 'var(--paper)',
-          fontFamily: '"Bangers", cursive',
-          fontSize: Math.round(nameBannerH * 0.72),
-          letterSpacing: '0.08em',
-          textAlign: 'center',
-          padding: '2px 4px',
-          border: '2px solid var(--ink)',
-          borderTop: 'none',
-          width: size,
-        }}
-      >
-        {element.label.toUpperCase()}
-      </div>
+      {/* Attribute badge */}
+      {attribute && (
+        <div style={{
+          position: 'absolute',
+          top: -Math.round(size * 0.12),
+          right: -Math.round(size * 0.12),
+          width: badgeSize,
+          height: badgeSize,
+          borderRadius: '50%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: Math.round(badgeSize * 0.6),
+          zIndex: 2,
+          pointerEvents: 'none',
+        }}>
+          {attribute.icon}
+        </div>
+      )}
     </div>
   )
 }

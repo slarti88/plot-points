@@ -1,3 +1,8 @@
+export interface Attribute {
+  name: string
+  icon: string
+}
+
 export interface LevelNode {
   id: string
   label: string
@@ -9,6 +14,7 @@ export interface LevelNode {
   mustNotShareWith?: string[]
   emptyImage?: string
   filledImages?: Record<string, string>
+  attribute?: string
 }
 
 export interface LevelElement {
@@ -19,6 +25,7 @@ export interface LevelElement {
   trait: string
   bio: string
   cooldown: number
+  attribute?: string
 }
 
 export interface Level {
@@ -26,6 +33,7 @@ export interface Level {
   title: string
   nodes: LevelNode[]
   elements: LevelElement[]
+  attributes?: Record<string, Attribute>
 }
 
 export interface LevelInfo {

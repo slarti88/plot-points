@@ -23,7 +23,12 @@ export default function DragGhost({ dragState, level }: Props) {
         userSelect: 'none',
       }}
     >
-      <CharacterPortrait element={elem} state="dragging" size={64} />
+      <CharacterPortrait
+        element={elem}
+        attribute={elem.attribute ? level.attributes?.[elem.attribute] : undefined}
+        state="dragging"
+        size={64}
+      />
     </div>,
     document.body,
   )

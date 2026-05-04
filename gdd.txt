@@ -350,23 +350,60 @@ Come up with a plan for this change and share it with me. Ask me for any clarifi
 - ABility to access different levels and chapters
 - Update text to reflect characters with their colors based on who you drag/dropped.
 - Come up with a better level 2 and update level 1 to be a mystery of sorts also have options of more characters but can't use them all
--  Simplify art even further
+- Simplify art even further
 - On tap of icon for character show a floating bar that shows the character bio
 - Progress storage (local / indexeddb)
+- Tint the chara image with color of chosen icon? (Maybe a bit later)
 
-- Enhance this to support multiple levels or chapters
-- For now update level.json to be level1.json
-- Add another json contain level names and let it be an array. 
-- Create a screen that shows a list of available levels to select. Selecting that takes us to the game screen with that level selected
+Ok better level 1
 
-Bugs
-1. Text details are not shown for plot points
-2. Icon for single character nodes
-3. Icons are being hidden by the task bar on my phone
+=> Basically no lasting effect on characters that can screw up further chapters, essentially let there be multiple solutions without f'ing up everything!
 
+Adventure in a cave
 
-As a next step we want to add the ability to update character texts in the plot body based on the characters that have been dropped on the plot card. The text for the card has placeholders of the form <1>, <2> and so on, where 1 refers to the character dropped in the first slot, 2 in the second slot etc.
+-> Four explorers come across a hidden cave.
+-> Two of them go in to explore it
+-> One of them gets whacked by a ghost?
+-> The other one returns!
+-> One of them has the ability to see ghosts
+-> Two of them who didn't go in are having to go in to look for the missing friend
+-> There are two paths and a weird noise comes from one of them, one goes towards the noise, one goes to the other side
+-> The one in the other side finds his friend unconcsious amid a pile of trinkets
+-> The one who went towards the noise can see the ghost and avoids getting hit by the log
+-> All three friends return out
+-> The one who went to rescue the friend reveals a strange trinket he picked up in the cave!
 
-If a character has not been dropped it should show ??? otherwise it should show the character's name and should be colored based on the character's color defined in the color field of the elements json.
+Ok level 2 story meanwhile!
 
-Come up with a plan to add this and show me the plan. Ask me for any clarifications you might require.
+The ring of scale!
+
+-> Two friends are resting by the fire when they hear a growl
+-> X grabs ring of ghost, Y grabs ring of size
+-> A bear chases after them as they run
+-> A third friend motions them to come inside from a decrepit house
+-> One friend runs off while another goes in
+-> The bear chases after the friend who ran away
+-> The friend wears the ring of scale  to beome smaller confusing the bear
+-> In the house the *friend* takes out a knife and asks for valuables
+-> He grabs the ring from the guy and wears it revealing ghosts that freak him out!
+-> He drops unconcsious and the original guy runs away 
+
+Goal of the puzzle
+
+-> Charas grab rings
+-> Charas use them in their situation
+-> Third chara can be chosen from two options
+    -> One is scared
+    -> One is brave
+-> In one situation 
+    -> Ring is exchanged with another chara
+    -> Who ultimately uses it
+-> In another situation
+    -> Ring is plainly used
+
+Next steps
+- Add in ring conditions. ALready there kinda, toh sorenishiteoko
+- Figure out image dimensions - Done
+- How to show rings
+    - OK so best idea is to have ring be shown in the comic panel where it is used in the front facing one as well and show it as icon overlayed on the character. Make a design for this and use it in level 1 before moving on to level 2
+    - So have a ghost icon overlayed on ellara for example on the top right of the card and make the card circular

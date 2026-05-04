@@ -1,6 +1,6 @@
 import { halftone } from '../utils/halftone'
 import { parseBody } from '../utils/parseBody'
-import type { Level, LevelElement, LevelNode } from '../types'
+import type { Attribute, Level, LevelElement, LevelNode } from '../types'
 import NodeConstraints from './NodeConstraints'
 
 export type CardState = 'normal' | 'accepting' | 'rejecting'
@@ -112,6 +112,7 @@ export default function PlotCard({
                       placedElements={placedElements}
                       isEmpty={isEmpty}
                       isSingleSlot={cap === 1}
+                      attributes={level.attributes}
                       onDragStart={(x, y) => onSlotDragStart(placedElements[0].id, nodeIdx, x, y)}
                     />
                 }
@@ -268,6 +269,7 @@ export default function PlotCard({
                 placedElements={placedElements}
                 isEmpty={isEmpty}
                 isSingleSlot={cap === 1}
+                attributes={level.attributes}
                 onDragStart={(x, y) => onSlotDragStart(placedElements[0].id, nodeIdx, x, y)}
               />
           }
@@ -374,14 +376,17 @@ export default function PlotCard({
   )
 }
 
-function LayeredImageRegion({ node, placedElements, isEmpty, isSingleSlot, onDragStart }: {
+function LayeredImageRegion({ node, placedElements, isEmpty, isSingleSlot, attributes, onDragStart }: {
   node: LevelNode
   placedElements: LevelElement[]
   isEmpty: boolean
   isSingleSlot: boolean
+  attributes?: Record<string, Attribute>
   onDragStart: (x: number, y: number) => void
 }) {
   const canDrag = isSingleSlot && !isEmpty
+  const attrBadges = node.attribute ? attributes?.[node.attribute] : undefined;
+  //console.log("attr " + attributes?.["ghost-ring"].name + " elem " + placedElements);
 
   return (
     <div
@@ -389,14 +394,14 @@ function LayeredImageRegion({ node, placedElements, isEmpty, isSingleSlot, onDra
       onTouchStart={canDrag ? (e => { e.preventDefault(); const t = e.touches[0]; onDragStart(t.clientX, t.clientY) }) : undefined}
       style={{
         width: '100%', height: '100%', position: 'relative',
-        background: isEmpty ? PAPER : 'linear-gradient(180deg, #f5d98a 0%, #e8b872 100%)',
+        background: PAPER,
         cursor: canDrag ? 'grab' : 'default',
       }}
     >
       {node.emptyImage && (
         <img
           src={node.emptyImage} alt="" draggable={false}
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain' }}
         />
       )}
 
@@ -407,16 +412,10 @@ function LayeredImageRegion({ node, placedElements, isEmpty, isSingleSlot, onDra
           <img
             key={elem.id}
             src={imgUrl} alt="" draggable={false}
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain' }}
           />
         )
       })}
-
-      <div style={{
-        position: 'absolute', inset: 0,
-        backgroundImage: halftone('var(--ink)', isEmpty && !node.emptyImage ? 0.22 : 0.2, isEmpty && !node.emptyImage ? 7 : 5),
-        mixBlendMode: 'multiply', pointerEvents: 'none',
-      }} />
 
       {isEmpty && !node.emptyImage && (
         <div style={{
@@ -429,6 +428,23 @@ function LayeredImageRegion({ node, placedElements, isEmpty, isSingleSlot, onDra
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontFamily: '"Bangers", cursive', fontSize: 18, color: INK,
           }}>?</div>
+        </div>
+      )}
+      {attrBadges && (
+        <div style={{
+          position: 'absolute', bottom: 6, right: 6, zIndex: 3,
+          display: 'flex', flexDirection: 'column', gap: 3,
+          alignItems: 'center',
+        }}>
+            <div style={{
+              width: 22, height: 22, borderRadius: '50%',
+              background: PAPER, border: `2px solid ${INK}`,
+              boxShadow: `1px 1px 0 ${INK}`,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: 12,
+            }}>
+              {attrBadges.icon}
+            </div>
         </div>
       )}
     </div>

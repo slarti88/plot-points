@@ -29,7 +29,9 @@ export default function NodeConstraints({ level, nodeIdx, placements }: Props) {
 
     const cooldown = node.t[i] ?? 0
 
-    return { notShareLabel, notShareViolated, shareLabel, shareMet, cooldown }
+    const attributeLabel = node.attribute;
+
+    return { notShareLabel, notShareViolated, shareLabel, shareMet, cooldown, attributeLabel }
   })
 
   return (
@@ -98,6 +100,11 @@ export default function NodeConstraints({ level, nodeIdx, placements }: Props) {
             {slot.cooldown > 0 && (
               <div style={{ fontSize: 11, color: '#403a30', paddingLeft: 2 }}>
                 Character cannot be used for the next {slot.cooldown} turn{slot.cooldown !== 1 ? 's' : ''}
+              </div>
+            )}
+            {slot.attributeLabel && (
+              <div style={{ fontSize: 11, color: '#403a30', paddingLeft: 2 }}>
+                <b>{slot.attributeLabel}</b> needed!
               </div>
             )}
           </div>

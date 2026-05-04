@@ -35,7 +35,7 @@ export default function NodeList({
   }
 
   const items = level.nodes.map((node, i) => ({ node, nodeIdx: i }))
-
+  
   return (
     <div
       className="node-scroll"

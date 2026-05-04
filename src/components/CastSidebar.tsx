@@ -9,6 +9,7 @@ interface Props {
 }
 
 export default function CastSidebar({ level, isMobile, onDragStart }: Props) {
+
   if (isMobile) {
     const overflows = level.elements.length > 5
     return (
@@ -30,6 +31,7 @@ export default function CastSidebar({ level, isMobile, onDragStart }: Props) {
           <div key={elem.id} style={{ flexShrink: 0 }}>
             <CharacterPortrait
               element={elem}
+              attribute={elem.attribute ? level.attributes?.[elem.attribute] : undefined}
               size={52}
               state="idle"
               onDragStart={onDragStart}
@@ -72,6 +74,7 @@ export default function CastSidebar({ level, isMobile, onDragStart }: Props) {
           <div key={elem.id} style={{ display: 'flex', justifyContent: 'center' }}>
             <CharacterPortrait
               element={elem}
+              attribute={elem.attribute ? level.attributes?.[elem.attribute] : undefined}
               size={80}
               state="idle"
               onDragStart={onDragStart}
