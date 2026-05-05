@@ -24,7 +24,7 @@ export default function CastSidebar({ level, isMobile, onDragStart }: Props) {
         overflowX: overflows ? 'auto' : 'visible',
         justifyContent: overflows ? 'flex-start' : 'center',
         padding: '0 12px',
-        paddingBottom: 'calc(25px + env(safe-area-inset-bottom))',
+        paddingBottom: 'calc(40px + env(safe-area-inset-bottom))',
         gap: 12,
       }}>
         {level.elements.map(elem => (

@@ -32,8 +32,6 @@ export function validate(
     if (next <= curr + cooldown) return false
   }
 
-  console.log("Cooldown passed")
-
   // Per-slot constraint: element at this slot must come from the specified source node
   if (node.mustShareWith) {
     const slot = existing.length
@@ -43,8 +41,6 @@ export function validate(
       if (refIdx !== -1 && !(placements.get(refIdx) ?? []).includes(elementId)) return false
     }
   }
-
-  console.log("Share with passed")
 
   if (node.mustNotShareWith) {
     const slot = existing.length
@@ -57,7 +53,6 @@ export function validate(
     }
   }
 
-  console.log("Not Share with passed")
 
   if (node.attribute) {
     const slot  = existing.length
@@ -65,12 +60,10 @@ export function validate(
     {
       const elem = level.elements?.find((val,_) => {return val.id === elementId});
       const attr = elem?.attribute;
-      console.log ("attr " + attr + " node attr " + node.attribute[slot] + " slot " + slot + " elem " + elem?.label + " elem id " + elementId);
-      if (node.attribute[slot] && attr && attr !== node.attribute[slot]) return false;
+      //console.log ("attr " + attr + " node attr " + node.attribute[slot] + " slot " + slot + " elem " + elem?.label + " elem id " + elementId);
+      if (node.attribute[slot] && attr !== node.attribute[slot]) return false;
     }
   }
-
-  console.log("Attr passed")
 
   return true
 }
