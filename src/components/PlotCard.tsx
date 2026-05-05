@@ -385,7 +385,9 @@ function LayeredImageRegion({ node, placedElements, isEmpty, isSingleSlot, attri
   onDragStart: (x: number, y: number) => void
 }) {
   const canDrag = isSingleSlot && !isEmpty
-  const attrBadges = node.attribute ? attributes?.[node.attribute] : undefined;
+  const attrBadges = node.attribute ? node.attribute.map((val,i,_)=> {
+    return attributes?.[val]
+  }): undefined;
   //console.log("attr " + attributes?.["ghost-ring"].name + " elem " + placedElements);
 
   return (
@@ -430,8 +432,10 @@ function LayeredImageRegion({ node, placedElements, isEmpty, isSingleSlot, attri
           }}>?</div>
         </div>
       )}
-      {attrBadges && (
-        <div style={{
+      {attrBadges && attrBadges.length > 0 && 
+       attrBadges.map((val,i,_) => (val && 
+        <div key={i}
+          style={{
           position: 'absolute', bottom: 6, right: 6, zIndex: 3,
           display: 'flex', flexDirection: 'column', gap: 3,
           alignItems: 'center',
@@ -443,10 +447,10 @@ function LayeredImageRegion({ node, placedElements, isEmpty, isSingleSlot, attri
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: 12,
             }}>
-              {attrBadges.icon}
+              {val?.icon}
             </div>
         </div>
-      )}
+      ))}
     </div>
   )
 }

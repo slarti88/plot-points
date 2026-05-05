@@ -1,17 +1,17 @@
-import type { LevelElement, LevelNode } from '../types'
+import type { LevelElement, LevelNode, Level} from '../types'
 
 export function validate(
   elementId: string,
   targetIdx: number,
   placements: Map<number, string[]>,
-  nodes: LevelNode[],
-  elements: LevelElement[]
+  level: Level
 ): boolean {
+  const nodes = level.nodes;
   const node = nodes[targetIdx]
   const existing = placements.get(targetIdx) ?? []
   const cap = node.capacity ?? 1
 
-  if (!node.allowedElements.includes(elementId)) return false
+  if (node.allowedElements && node.allowedElements.length > 0 && !node.allowedElements.includes(elementId)) return false
   if (existing.length >= cap) return false
   if (existing.includes(elementId)) return false
 
@@ -32,6 +32,8 @@ export function validate(
     if (next <= curr + cooldown) return false
   }
 
+  console.log("Cooldown passed")
+
   // Per-slot constraint: element at this slot must come from the specified source node
   if (node.mustShareWith) {
     const slot = existing.length
@@ -41,6 +43,8 @@ export function validate(
       if (refIdx !== -1 && !(placements.get(refIdx) ?? []).includes(elementId)) return false
     }
   }
+
+  console.log("Share with passed")
 
   if (node.mustNotShareWith) {
     const slot = existing.length
@@ -52,6 +56,21 @@ export function validate(
       }
     }
   }
+
+  console.log("Not Share with passed")
+
+  if (node.attribute) {
+    const slot  = existing.length
+    if (slot < node.attribute.length)
+    {
+      const elem = level.elements?.find((val,_) => {return val.id === elementId});
+      const attr = elem?.attribute;
+      console.log ("attr " + attr + " node attr " + node.attribute[slot] + " slot " + slot + " elem " + elem?.label + " elem id " + elementId);
+      if (node.attribute[slot] && attr && attr !== node.attribute[slot]) return false;
+    }
+  }
+
+  console.log("Attr passed")
 
   return true
 }

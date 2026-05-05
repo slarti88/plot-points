@@ -29,7 +29,7 @@ export default function NodeList({
 
     if (!dragState || dragState.hoverNodeIdx !== nodeIdx) return 'normal'
     if (placed.length >= cap) return 'rejecting'
-    return validate(dragState.elementId, nodeIdx, placements, level.nodes, level.elements)
+    return validate(dragState.elementId, nodeIdx, placements, level)
       ? 'accepting'
       : 'rejecting'
   }

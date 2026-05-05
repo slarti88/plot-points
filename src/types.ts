@@ -14,7 +14,7 @@ export interface LevelNode {
   mustNotShareWith?: string[]
   emptyImage?: string
   filledImages?: Record<string, string>
-  attribute?: string
+  attribute?: string[]
 }
 
 export interface LevelElement {

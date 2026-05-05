@@ -90,7 +90,7 @@ export function useGameState(level: Level) {
       } else if (originNodeIdx !== null && targetIdx === originNodeIdx) {
         attach(originNodeIdx, elementId)
       } else {
-        const ok = validate(elementId, targetIdx, currentPlacements, level.nodes, level.elements)
+        const ok = validate(elementId, targetIdx, currentPlacements, level)
         if (ok) {
           attach(targetIdx, elementId)
         } else {

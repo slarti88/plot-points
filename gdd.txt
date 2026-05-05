@@ -377,16 +377,16 @@ Ok level 2 story meanwhile!
 
 The ring of scale!
 
--> Two friends are resting by the fire when they hear a growl
--> X grabs ring of ghost, Y grabs ring of size
+-> Two characters X and Y are resting by the fire when they hear a growl
 -> A bear chases after them as they run
--> A third friend motions them to come inside from a decrepit house
--> One friend runs off while another goes in
--> The bear chases after the friend who ran away
--> The friend wears the ring of scale  to beome smaller confusing the bear
--> In the house the *friend* takes out a knife and asks for valuables
--> He grabs the ring from the guy and wears it revealing ghosts that freak him out!
--> He drops unconcsious and the original guy runs away 
+-> A third character Z motions them to come inside from a decrepit house
+-> Y runs off while X goes in
+-> The bear chases after Y
+-> Y wears the ring of scale  to become smaller confusing the bear
+-> In the house Z takes out a knife and asks X for his valuables
+-> He grabs the ring from X and wears it 
+-> Z looks around and sees a bunch of ghosts which scares him!
+-> He drops unconcsious and X runs away taking the ring back
 
 Goal of the puzzle
 
@@ -402,8 +402,27 @@ Goal of the puzzle
     -> Ring is plainly used
 
 Next steps
-- Add in ring conditions. ALready there kinda, toh sorenishiteoko
-- Figure out image dimensions - Done
-- How to show rings
-    - OK so best idea is to have ring be shown in the comic panel where it is used in the front facing one as well and show it as icon overlayed on the character. Make a design for this and use it in level 1 before moving on to level 2
-    - So have a ghost icon overlayed on ellara for example on the top right of the card and make the card circular
+- So what is the plan like, now I guess I have all the basic ingredients. Given what I have and within these constraints make a chapter a day. Today's goal is to make chapter 2. By Friday we should have 5 chapters then it will be time to get some feedback.
+- Also this will be a process type thing. So two 2.5 hr focus sessions in the morning to do this and then the rest of the day back to whack-job and economics.
+
+- Update the slot based data to include attribute. Something like attribute-name needed
+
+Make the level 2 json! without art!
+
+
+Replace level2.json with each of the following lines forming a node. 
+Have 4 characters in the elements json.
+Fill in whatever details you can, I'll update the rest afterwards. 
+
+These are the lines use the text after -> for the node text but replace character names with generic <1>,<2> as per the level format.
+
+-> Two characters X and Y are resting by the fire when they hear a growl
+-> A bear chases after them as they run
+-> A third character Z motions them to come inside from a decrepit house
+-> Y runs off while X goes in
+-> The bear chases after Y
+-> Y wears the ring of scale  to become smaller confusing the bear
+-> In the house Z takes out a knife and asks X for his valuables
+-> He grabs the ring from X and wears it 
+-> Z looks around and sees a bunch of ghosts which scares him!
+-> He drops unconcsious and X runs away taking the ring back
