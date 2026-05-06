@@ -347,82 +347,50 @@ Come up with a plan for this change and share it with me. Ask me for any clarifi
 - Ok next step after hosting?
 - Mobile support
 - Fix bugs with mobile support
-- ABility to access different levels and chapters
-- Update text to reflect characters with their colors based on who you drag/dropped.
-- Come up with a better level 2 and update level 1 to be a mystery of sorts also have options of more characters but can't use them all
-- Simplify art even further
+- ABility to access different levels and chapters*
+- Update text to reflect characters with their colors based on who you drag/dropped.*
+- Come up with a better level 2 and update level 1 to be a mystery of sorts also have options of more characters but can't use them all*
+- Simplify art even further*
 - On tap of icon for character show a floating bar that shows the character bio
 - Progress storage (local / indexeddb)
 - Tint the chara image with color of chosen icon? (Maybe a bit later)
-
-Ok better level 1
-
-=> Basically no lasting effect on characters that can screw up further chapters, essentially let there be multiple solutions without f'ing up everything!
-
-Adventure in a cave
-
--> Four explorers come across a hidden cave.
--> Two of them go in to explore it
--> One of them gets whacked by a ghost?
--> The other one returns!
--> One of them has the ability to see ghosts
--> Two of them who didn't go in are having to go in to look for the missing friend
--> There are two paths and a weird noise comes from one of them, one goes towards the noise, one goes to the other side
--> The one in the other side finds his friend unconcsious amid a pile of trinkets
--> The one who went towards the noise can see the ghost and avoids getting hit by the log
--> All three friends return out
--> The one who went to rescue the friend reveals a strange trinket he picked up in the cave!
-
-Ok level 2 story meanwhile!
-
-The ring of scale!
-
--> Two characters X and Y are resting by the fire when they hear a growl
--> A bear chases after them as they run
--> A third character Z motions them to come inside from a decrepit house
--> Y runs off while X goes in
--> The bear chases after Y
--> Y wears the ring of scale  to become smaller confusing the bear
--> In the house Z takes out a knife and asks X for his valuables
--> He grabs the ring from X and wears it 
--> Z looks around and sees a bunch of ghosts which scares him!
--> He drops unconcsious and X runs away taking the ring back
-
-Goal of the puzzle
-
--> Charas grab rings
--> Charas use them in their situation
--> Third chara can be chosen from two options
-    -> One is scared
-    -> One is brave
--> In one situation 
-    -> Ring is exchanged with another chara
-    -> Who ultimately uses it
--> In another situation
-    -> Ring is plainly used
-
-Next steps
-- So what is the plan like, now I guess I have all the basic ingredients. Given what I have and within these constraints make a chapter a day. Today's goal is to make chapter 2. By Friday we should have 5 chapters then it will be time to get some feedback.
-- Also this will be a process type thing. So two 2.5 hr focus sessions in the morning to do this and then the rest of the day back to whack-job and economics.
-
-- Update the slot based data to include attribute. Something like attribute-name needed
-
-Make the level 2 json! without art!
+- Force mobile layouts on ipads?
 
 
-Replace level2.json with each of the following lines forming a node. 
-Have 4 characters in the elements json.
-Fill in whatever details you can, I'll update the rest afterwards. 
+Level 3
 
-These are the lines use the text after -> for the node text but replace character names with generic <1>,<2> as per the level format.
+Level Goals?
+- Use of two rings
+- Ensure a condition that works for someone without a ring
 
--> Two characters X and Y are resting by the fire when they hear a growl
--> A bear chases after them as they run
--> A third character Z motions them to come inside from a decrepit house
--> Y runs off while X goes in
--> The bear chases after Y
--> Y wears the ring of scale  to become smaller confusing the bear
--> In the house Z takes out a knife and asks X for his valuables
--> He grabs the ring from X and wears it 
--> Z looks around and sees a bunch of ghosts which scares him!
--> He drops unconcsious and X runs away taking the ring back
+
+Charas - A,B,C,D
+
+1. Choose any two
+2. One out of those two becomes incapacitated for 4 turns (ring user)
+3. One from two remaining is chosen for something else
+4. He does something else and is incapacitated for 2 turns (ring user)
+5. The remaining is chosen and he doesn't have a ring
+6. One of the other two also without a ring joins the prev guy and they choose to free a guy
+7. Second guy is freed and he gives his ring to one of the two
+8. The other guy looks for first guy and frees him
+9. First guy gives him the ring
+10 Both guys go to the lair and slip through undetected from either side
+11 One uses one ring to do one thing
+12. Other uses the other ring to do another thing
+13. Evil is thwarted
+
+
+Create a level3.json from the lines below. Every line is a plot point (or node) and there are five characters. The title of the level is 'Mystery Temple' . Two attributes are there ring-of-size and ring-of-ghost
+
+1. Four friends journey into the temple of wonders to seek out more rings! 
+2. Not everyone can go in, X holds the door for the others
+3. Then Y falls through a trap door, he's ok though!
+4. W and Z are confronted by the evil U but they don't have any rings!
+5. U gives up and leaves and W and Z find a big golden door locked from the other side
+6. W asks X to pass him his ring
+8. Z asks Y to pass him his ring
+9. W use ring-of-size to make himself small and goes to the other side
+10. Z uses ring-of-ghost to tell ask a friendly ghost to help from the other side
+11. The ghost and W push the levers to open the door!
+12. The four friends stand in front of the door, what lies inside? 

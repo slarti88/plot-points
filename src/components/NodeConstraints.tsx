@@ -1,4 +1,5 @@
 import type { Level } from '../types'
+import CharacterPortrait from './CharacterPortrait'
 
 interface Props {
   level: Level
@@ -10,6 +11,12 @@ export default function NodeConstraints({ level, nodeIdx, placements }: Props) {
   const node = level.nodes[nodeIdx]
   const cap = node.capacity ?? 1
   const thisElements = placements.get(nodeIdx) ?? []
+
+  const allowed = node.allowedElements ?? []
+  const showAllowed = allowed.length > 0 && allowed.length < level.elements.length
+  const eligibleElements = showAllowed
+    ? level.elements.filter(e => allowed.includes(e.id))
+    : []
 
   const slots = Array.from({ length: cap }, (_, i) => {
     const notShareId = node.mustNotShareWith?.[i]
@@ -36,6 +43,49 @@ export default function NodeConstraints({ level, nodeIdx, placements }: Props) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+      {/*showAllowed && (
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap',
+          border: '1.5px solid var(--ink)',
+          padding: '4px 7px',
+          background: 'var(--paper)',
+          boxShadow: '1.5px 1.5px 0 var(--ink)',
+        }}>
+          <div style={{ fontSize: 11, color: '#403a30', flexShrink: 0 }}>Only:</div>
+          {eligibleElements.map(el => (
+            <CharacterPortrait
+              key={el.id}
+              element={el}
+              attribute={el.attribute ? level.attributes?.[el.attribute] : undefined}
+              size={36}
+            />
+          ))}
+        </div>
+      )*/}
+      {showAllowed && <div style={{
+                  display: 'flex', flexWrap: 'wrap', gap: 4,
+                  alignContent: 'flex-start', overflow: 'hidden',
+                  flexShrink: 0,
+                }}>
+                  <div style={{ fontSize: 11, color: '#403a30', flexShrink: 0 }}>Only:</div>
+                  {eligibleElements.map(el => (
+                      <div
+                        key={el.id}
+                        style={{
+                          display: 'flex', alignItems: 'center', gap: 3,
+                          background: el.color + '33',
+                          border: `1.5px solid var{--ink}`,
+                          boxShadow: `1.5px 1.5px 0 var{--ink}`,
+                          padding: '2px 4px 2px 3px',
+                          cursor: 'grab', userSelect: 'none',
+                          fontFamily: '"Nunito", sans-serif', fontSize: 10, fontWeight: 700,
+                        }}
+                      >
+                        <span style={{ color: 'var{--ink}' }}>{el.label}</span>
+                      </div>
+                    ))}
+                </div>
+      }
       {slots.map((slot, i) => {
         const hasConditions = slot.notShareLabel || slot.shareLabel || slot.cooldown > 0
         return (
