@@ -43,31 +43,12 @@ export default function NodeConstraints({ level, nodeIdx, placements }: Props) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-      {/*showAllowed && (
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap',
-          border: '1.5px solid var(--ink)',
-          padding: '4px 7px',
-          background: 'var(--paper)',
-          boxShadow: '1.5px 1.5px 0 var(--ink)',
-        }}>
-          <div style={{ fontSize: 11, color: '#403a30', flexShrink: 0 }}>Only:</div>
-          {eligibleElements.map(el => (
-            <CharacterPortrait
-              key={el.id}
-              element={el}
-              attribute={el.attribute ? level.attributes?.[el.attribute] : undefined}
-              size={36}
-            />
-          ))}
-        </div>
-      )*/}
       {showAllowed && <div style={{
                   display: 'flex', flexWrap: 'wrap', gap: 4,
                   alignContent: 'flex-start', overflow: 'hidden',
                   flexShrink: 0,
                 }}>
-                  <div style={{ fontSize: 11, color: '#403a30', flexShrink: 0 }}>Only:</div>
+                  <div style={{ fontSize: 11, color: '#403a30', flexShrink: 0 }}>Only/:</div>
                   {eligibleElements.map(el => (
                       <div
                         key={el.id}
