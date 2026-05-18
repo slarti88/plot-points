@@ -45,7 +45,7 @@ export default function PlotCard({
 
   if (isMobile) {
     return (
-      <div style={{ position: 'relative', height: 'calc((100svh - 176px) / 4)' }}>
+      <div style={{ position: 'relative', height: 'calc(100svh - 220px)' }}>
         {isGlowing && (
           <div
             className="animate-hf-pulse"
@@ -73,7 +73,6 @@ export default function PlotCard({
 
         <div
           data-node-idx={nodeIdx}
-          onClick={onFlip}
           style={{
             border: `2px ${borderStyle} ${borderColor}`,
             background: PAPER,
@@ -81,136 +80,123 @@ export default function PlotCard({
             position: 'relative',
             cursor: 'default',
             height: '100%',
-            display: 'flex',
+            overflowY: 'auto',
           }}
         >
-          {isFlipped ? (
+          {/* Image region — 50svh */}
+          <div style={{
+            height: '50svh',
+            flexShrink: 0,
+            borderBottom: `2px solid ${borderColor}`,
+            position: 'relative',
+            overflow: 'hidden',
+          }}>
+            {accepting
+              ? <AcceptingSlot />
+              : (rejecting && isEmpty)
+              ? <RejectingSlot />
+              : <LayeredImageRegion
+                  node={node}
+                  placedElements={placedElements}
+                  isEmpty={isEmpty}
+                  isSingleSlot={cap === 1}
+                  attributes={level.attributes}
+                  onDragStart={(x, y) => onSlotDragStart(placedElements[0].id, nodeIdx, x, y)}
+                />
+            }
+          </div>
+
+          {/* Text panel — title, body, character slots */}
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '10px 12px 8px',
+            borderBottom: `2px solid ${borderColor}`,
+            gap: 8,
+          }}>
             <div style={{
-              flex: 1,
-              overflowY: 'auto',
-              padding: '10px 12px',
+              fontFamily: '"Bangers", cursive',
+              fontSize: 18, letterSpacing: '0.04em',
+              color: INK, lineHeight: 1.1,
+              flexShrink: 0,
             }}>
-              <NodeConstraints level={level} nodeIdx={nodeIdx} placements={placements} />
+              {node.label}
             </div>
-          ) : (
-            <>
-              {/* Image region — left 38% */}
+
+            {node.body && (
               <div style={{
-                width: '38%',
-                flexShrink: 0,
-                height: '100%',
-                borderRight: `2px solid ${borderColor}`,
-                position: 'relative',
-                overflow: 'hidden',
+                fontFamily: '"Nunito", sans-serif',
+                fontSize: 13,
+                lineHeight: 1.4,
+                color: '#403a30',
+                fontStyle: 'italic',
               }}>
-                {accepting
-                  ? <AcceptingSlot />
-                  : (rejecting && isEmpty)
-                  ? <RejectingSlot />
-                  : <LayeredImageRegion
-                      node={node}
-                      placedElements={placedElements}
-                      isEmpty={isEmpty}
-                      isSingleSlot={cap === 1}
-                      attributes={level.attributes}
-                      onDragStart={(x, y) => onSlotDragStart(placedElements[0].id, nodeIdx, x, y)}
-                    />
-                }
-              </div>
-
-              {/* Text panel — right 62% */}
-              <div style={{
-                flex: 1,
-                display: 'flex',
-                flexDirection: 'column',
-                padding: '8px 8px 6px',
-                overflow: 'hidden',
-                gap: 5,
-              }}>
-                <div style={{
-                  fontFamily: '"Bangers", cursive',
-                  fontSize: 14, letterSpacing: '0.04em',
-                  color: INK, lineHeight: 1.1,
-                  flexShrink: 0,
-                }}>
-                  {node.label}
-                </div>
-
-                <div style={{
-                  display: 'flex', flexWrap: 'wrap', gap: 4,
-                  alignContent: 'flex-start', overflow: 'hidden',
-                  flexShrink: 0,
-                }}>
-                  {Array.from({ length: cap }).map((_, slotIdx) => {
-                    const elem = placedElements[slotIdx]
-                    return elem ? (
-                      <div
-                        key={elem.id}
-                        onMouseDown={e => { e.preventDefault(); e.stopPropagation(); onSlotDragStart(elem.id, nodeIdx, e.clientX, e.clientY) }}
-                        onTouchStart={e => { e.preventDefault(); e.stopPropagation(); const t = e.touches[0]; onSlotDragStart(elem.id, nodeIdx, t.clientX, t.clientY) }}
-                        style={{
-                          display: 'flex', alignItems: 'center', gap: 3,
-                          background: elem.color + '33',
-                          border: `1.5px solid ${INK}`,
-                          boxShadow: `1.5px 1.5px 0 ${INK}`,
-                          padding: '2px 4px 2px 3px',
-                          cursor: 'grab', userSelect: 'none',
-                          fontFamily: '"Nunito", sans-serif', fontSize: 10, fontWeight: 700,
-                        }}
-                      >
-                        <span style={{ fontSize: 11 }}>{elem.icon}</span>
-                        <span style={{ color: INK }}>{elem.label}</span>
-                        <button
-                          onMouseDown={e => { e.preventDefault(); e.stopPropagation(); onDetach(nodeIdx, elem.id) }}
-                          onTouchStart={e => { e.preventDefault(); e.stopPropagation(); onDetach(nodeIdx, elem.id) }}
-                          style={{
-                            marginLeft: 2, width: 14, height: 14, borderRadius: '50%',
-                            background: PAPER, border: `1.5px solid ${INK}`,
-                            fontFamily: '"Bangers", cursive', fontSize: 10,
-                            cursor: 'pointer', padding: 0, lineHeight: 1,
-                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            color: INK, flexShrink: 0,
-                          }}
-                        >×</button>
-                      </div>
-                    ) : (
-                      <div
-                        key={`empty-${slotIdx}`}
-                        style={{
-                          display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          width: 38, height: 20,
-                          border: `1.5px dashed ${INK}`,
-                          color: 'var(--muted)',
-                          fontFamily: '"Bangers", cursive', fontSize: 12,
-                        }}
-                      >+</div>
-                    )
-                  })}
-                </div>
-
-                {node.body && (
-                  <div style={{
-                    fontFamily: '"Nunito", sans-serif',
-                    fontSize: 10,
-                    lineHeight: 1.4,
-                    color: '#403a30',
-                    fontStyle: 'italic',
-                    flex: 1,
-                    overflow: 'hidden',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
-                  }}>
-                    {parseBody(node.body, placedElements).map((seg, i) =>
-                      seg.type === 'text'  ? seg.value :
-                      seg.type === 'name'  ? <span key={i} style={{ color: seg.color, fontWeight: 700, fontStyle: 'normal' }}>{seg.label}</span> :
-                                             <span key={i} style={{ color: 'var(--muted)' }}>???</span>
-                    )}
-                  </div>
+                {parseBody(node.body, placedElements).map((seg, i) =>
+                  seg.type === 'text'  ? seg.value :
+                  seg.type === 'name'  ? <span key={i} style={{ color: seg.color, fontWeight: 700, fontStyle: 'normal' }}>{seg.label}</span> :
+                                         <span key={i} style={{ color: 'var(--muted)' }}>???</span>
                 )}
               </div>
-            </>
-          )}
+            )}
+
+            <div style={{
+              display: 'flex', flexWrap: 'wrap', gap: 6,
+              alignContent: 'flex-start',
+            }}>
+              {Array.from({ length: cap }).map((_, slotIdx) => {
+                const elem = placedElements[slotIdx]
+                return elem ? (
+                  <div
+                    key={elem.id}
+                    onMouseDown={e => { e.preventDefault(); e.stopPropagation(); onSlotDragStart(elem.id, nodeIdx, e.clientX, e.clientY) }}
+                    onTouchStart={e => { e.preventDefault(); e.stopPropagation(); const t = e.touches[0]; onSlotDragStart(elem.id, nodeIdx, t.clientX, t.clientY) }}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: 4,
+                      background: elem.color + '33',
+                      border: `1.5px solid ${INK}`,
+                      boxShadow: `1.5px 1.5px 0 ${INK}`,
+                      padding: '3px 6px 3px 4px',
+                      cursor: 'grab', userSelect: 'none',
+                      fontFamily: '"Nunito", sans-serif', fontSize: 12, fontWeight: 700,
+                    }}
+                  >
+                    <span style={{ fontSize: 13 }}>{elem.icon}</span>
+                    <span style={{ color: INK }}>{elem.label}</span>
+                    <button
+                      onMouseDown={e => { e.preventDefault(); e.stopPropagation(); onDetach(nodeIdx, elem.id) }}
+                      onTouchStart={e => { e.preventDefault(); e.stopPropagation(); onDetach(nodeIdx, elem.id) }}
+                      style={{
+                        marginLeft: 2, width: 16, height: 16, borderRadius: '50%',
+                        background: PAPER, border: `1.5px solid ${INK}`,
+                        fontFamily: '"Bangers", cursive', fontSize: 11,
+                        cursor: 'pointer', padding: 0, lineHeight: 1,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        color: INK, flexShrink: 0,
+                      }}
+                    >×</button>
+                  </div>
+                ) : (
+                  <div
+                    key={`empty-${slotIdx}`}
+                    style={{
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      width: 44, height: 24,
+                      border: `1.5px dashed ${INK}`,
+                      color: 'var(--muted)',
+                      fontFamily: '"Bangers", cursive', fontSize: 14,
+                    }}
+                  >+</div>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Node constraints */}
+          <div style={{
+            padding: '10px 12px',
+          }}>
+            <NodeConstraints level={level} nodeIdx={nodeIdx} placements={placements} />
+          </div>
         </div>
       </div>
     )

@@ -32,11 +32,15 @@ export default function NodeConstraints({ level, nodeIdx, placements }: Props) {
     const shareLabel = shareRef !== -1 ? level.nodes[shareRef].label : null
     const shareMet = shareRef !== -1
       && thisElements.length > 0
-      && thisElements.some(id => (placements.get(shareRef) ?? []).includes(id))
+      && (placements.get(shareRef) ?? []).includes(thisElements[i])
 
     const cooldown = node.t[i] ?? 0
 
-    const attributeLabel = node.attribute;
+    var attributeLabel = null;
+    if (node.attribute && node.attribute.length > i)
+    {
+        attributeLabel = node.attribute[i];
+    } 
 
     return { notShareLabel, notShareViolated, shareLabel, shareMet, cooldown, attributeLabel }
   })

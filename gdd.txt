@@ -350,3 +350,62 @@ Come up with a plan for this change and share it with me. Ask me for any clarifi
 - Force mobile layouts on ipads?
 - Show only supports X,Y,Z characters*
 - Clean up level 4 and then execute on level 5
+
+Ok Level 5!
+- Need to shake things up mechanistically a bit
+    - Character relations matter?
+    - Probably
+
+- Ok what if we play with the availability only?
+
+- Use A (Cant use for 5)
+- Use B (Cant use for 3)
+etc.
+The defining point would still become I need to use X at plot point whatever and hence the ring is important again?
+Lets try a different approach
+I have a circular dependency thing?
+So if you use A -> You have to select from B -> If you use B you have to select from C
+Ok what if it was that you could add rings to the elements as well. Ok so I do something like A picks up "Y"
+Then only A can do it, B and others can't!
+
+
+Create a level5.json with the content below. Each line is a node. The characters include X,Y,Z and W but also the rings 1,2 and 3 
+
+- The ring in the middle suddenly glows bright engulfing all 4 of them
+- They all (X,Y,Z and U) and their rings (1,2,3) suddenly find themselves lying in a field 
+- A menacing scarecrow scares them and they all scatter
+- W is the first to run he picks up ring 1 and scatters
+- X and Y take rings 2 and 3 and also split
+- Z goes along with X
+- U takes off his disguise and laughs gleefully as he admires his ring but the scarecrow is not far behind
+- U uses the ring which is ring-of-size and grows big to intimidate the scarecrow
+- The scarecrow instead commands an army of crows to hurt U
+- As they do so, U's ring falls to the ground and he's back to normal size
+- Meanwhile Y find himself surrounded by various worms carrying spears!
+- He wears his ring and disappears in a flash of green light
+- Y re-appears and finds himself at the doorway of the temple next to a tied up W
+
+
+OK retrospection
+
+- The art is taking too much time 
+- The art is pretty crass
+- The interface on mobile is pretty bad 
+- Constant dragging and dropping is certainly a pain
+
+
+For points 2 and 3
+- Tap to know more opens a popup from bottom of screen
+- + buttons can be tapped to select a character 
+- + buttons are below the image tapping on image causes bottom drawer, and tapping on plus buttons causes chara selection
+- If bottom drawer is opened tapping outside should close it, nothing else can be done before that
+
+For point 2
+- Always have full background drawn for everything make it look colorful, no AI for now?
+
+For point 1
+- For now just keep making it? Dunno if 1 a day is feasible at this point
+
+Ok lets make incremental changes at this point
+
+- 
